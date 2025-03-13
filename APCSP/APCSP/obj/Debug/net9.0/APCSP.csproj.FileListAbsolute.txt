@@ -1,0 +1,14 @@
+/home/william/RiderProjects/APCSP/APCSP/bin/Debug/net9.0/APCSP
+/home/william/RiderProjects/APCSP/APCSP/bin/Debug/net9.0/APCSP.deps.json
+/home/william/RiderProjects/APCSP/APCSP/bin/Debug/net9.0/APCSP.runtimeconfig.json
+/home/william/RiderProjects/APCSP/APCSP/bin/Debug/net9.0/APCSP.dll
+/home/william/RiderProjects/APCSP/APCSP/bin/Debug/net9.0/APCSP.pdb
+/home/william/RiderProjects/APCSP/APCSP/obj/Debug/net9.0/APCSP.GeneratedMSBuildEditorConfig.editorconfig
+/home/william/RiderProjects/APCSP/APCSP/obj/Debug/net9.0/APCSP.AssemblyInfoInputs.cache
+/home/william/RiderProjects/APCSP/APCSP/obj/Debug/net9.0/APCSP.AssemblyInfo.cs
+/home/william/RiderProjects/APCSP/APCSP/obj/Debug/net9.0/APCSP.csproj.CoreCompileInputs.cache
+/home/william/RiderProjects/APCSP/APCSP/obj/Debug/net9.0/APCSP.dll
+/home/william/RiderProjects/APCSP/APCSP/obj/Debug/net9.0/refint/APCSP.dll
+/home/william/RiderProjects/APCSP/APCSP/obj/Debug/net9.0/APCSP.pdb
+/home/william/RiderProjects/APCSP/APCSP/obj/Debug/net9.0/APCSP.genruntimeconfig.cache
+/home/william/RiderProjects/APCSP/APCSP/obj/Debug/net9.0/ref/APCSP.dll
