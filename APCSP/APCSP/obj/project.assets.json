@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/william/RiderProjects/APCSP/APCSP/APCSP.csproj",
+      "projectUniqueName": "/home/william/GitHub/APCSP-Performance-Task/APCSP/APCSP/APCSP.csproj",
       "projectName": "APCSP",
-      "projectPath": "/home/william/RiderProjects/APCSP/APCSP/APCSP.csproj",
+      "projectPath": "/home/william/GitHub/APCSP-Performance-Task/APCSP/APCSP/APCSP.csproj",
       "packagesPath": "/home/william/.nuget/packages/",
-      "outputPath": "/home/william/RiderProjects/APCSP/APCSP/obj/",
+      "outputPath": "/home/william/GitHub/APCSP-Performance-Task/APCSP/APCSP/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/william/.nuget/NuGet/NuGet.Config"
