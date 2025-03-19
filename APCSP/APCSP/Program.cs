@@ -1,4 +1,26 @@
-﻿using System.Text.Json;
+﻿/*
+Long-winded comment, but it's here for a reason.
+
+This was written in C#, with JetBrains Rider Non-Commercial.
+
+It's long, and probably drawn out, however I don't doubt that most of this code is required.
+
+CITATIONS:
+    I will admit to using AI; but for no program code itself.
+    I'm not the greatest with regular expressions, so I enlisted ChatGPT (model 4o) to help.
+    It created the expression "[^0-9]" in patternsList[5], and it confirmed patternsList[1] as being correct.
+    
+    I also used AI for debugging, which it gave me the insight to use a List instead of an Array for filteredList.
+    
+    More on AI, I used it to reformat the .json.
+    The .json originates from the Periodic Table of Elements Dataset from code.org, which I exported as a .csv.
+    I used CSVJSON (a website) to convert from .csv -> .json, but it wasn't parsing correctly, so ChatGPT converted the elements to how I needed it.
+    The original .json is still in this project, but is only there for archival purposes.
+    
+    Regular expression information came from the Microsoft Learn Documentation surrounding System.Text.RegularExpressions, Regex.IsMatch, and anything else regex related.
+END CITATIONS
+*/
+using System.Text.Json;
 using System.Text.RegularExpressions;
 namespace APCSP
 {
@@ -18,54 +40,34 @@ namespace APCSP
         public required string[] Group { get; set; }
         public required string[] Uses { get; set; }
     }
+        
     public class Program
     {
-        static string[] qualifierStrings = new string[3];
+        static string[] qualifierStrings;
+        static StreamReader reader = new("final_transformed_csvjson.json");
+        static string JSONString = reader.ReadToEnd(); 
+        static JSON dsJSONString = JsonSerializer.Deserialize<JSON>(JSONString)!; 
+        static List<int> filteredList;
         public static void Main(string[] args)
         {
-            //Counting / Toggle Variables
             int i = 1;
-
-            //Storage
             string search = "";
-            string[] filteredList;
-            
-            /*int[] idList;
-            string[] classificationList;
-            string[] partList;
-            string[] groupList; 
-            string[] finalList;*/
-            //JSON Setup
-            using StreamReader reader = new("final_transformed_csvjson.json");
-            string JSONString = reader.ReadToEnd();
-            try
-            {
-                JSON dsJSONString = JsonSerializer.Deserialize<JSON>(JSONString)!;
-                Console.WriteLine(dsJSONString.id);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                throw;
-            }
-            
             static void HaltForInput()
             {
-                Console.WriteLine("---\nPress anything to continue.");
+                Console.WriteLine("\n---\nPress anything to continue.");
                 Console.ReadKey();
             }
             
-            static void FilterList(string input)
+            static void BeginFilterList(string input)
             {
 
-                string[] patternList = { ",", "[0-4]a[c-h][j-l][q-s][w-x]z", "[0-4]", "qwer", "asdfghjklzxc" };
+                string[] patternList = { ",", "[0-4]a[c-h][j-l][q-s][w-x]z", "[0-4]", "qwer", "asdfghjklzxc", "[^0-9]" };
                 if (Regex.IsMatch(input, patternList[0]))
                 {
                     string[] filterBy = input.Split(',');
-                    //This is here to make sure the format is correct.
                     for (var i = 0; i < filterBy.Length; i++)
                     {
-                        if (filterBy[i].Length != 1 || !Regex.IsMatch(filterBy[i], patternList[1], RegexOptions.IgnoreCase))
+                        if (filterBy[i].Length != 1 || !Regex.IsMatch(filterBy[i], patternList[1], RegexOptions.IgnoreCase) || filterBy.Length != 3)
                         {
                             Console.WriteLine("Ensure the format is correct, then try again.");
                             HaltForInput();
@@ -111,21 +113,55 @@ namespace APCSP
                             };
                         }
                     }
+                    CrossCompare();
                 }
                 else
                 {
+                    if (Regex.IsMatch(input, patternList[5]))
+                    {
+                        Console.WriteLine("Ensure the format is correct, then try again.");
+                        HaltForInput();
+                        return;
+                    }
+                    for (var i = 0; i < dsJSONString.id.Length; i++)
+                    {
+                        if (dsJSONString.id[i] == input)
+                        {
+                            filteredList.Add(i);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            static void CrossCompare()
+            {
+                
+            }
+
+            static void DisplayInfo(int[] idStrings)
+            {
+                if (idStrings.Length > 1)
+                {
                     
+                }
+                else
+                {
+                    int index = idStrings[0];
+                    Console.WriteLine(dsJSONString.Name[index]);
+                    HaltForInput();
                 }
             }
 
             do
             {
-                //Console.Clear();
+                Console.Clear();
                 Console.WriteLine("APCSP Performance Task: Chemical Element Searching\n" +
                                   "\n" +
-                                  "You can search by properties, or by the element number itself.\n" +
+                                  "You can search by properties, or by the element number itself. The element number should be entered as-is, for example, 103.\n" +
                                   "Refer to the table below for properties.\n" +
-                                  "Something like 1,Q,A as an entry will filter by metals, that are solid at room temperature, and have no definitive group." +
+                                  "Something like 1,Q,A as an entry will filter by metals, that are solid at room temperature, and have no definitive group.\n" +
+                                  "All search options must be separated by commas, and you must use all 3.\n" +
                                   "\n" +
                                   "Classification || Phase at Room Temperature || Group\n" +
                                   "1) Metal || Q) Solid || A) No Definitive\n" +
@@ -141,8 +177,9 @@ namespace APCSP
                                   "Z) Actinide Metals\n" +
                                   "X) Superheavy Elements\n" +
                                   "C) Non-Metal");
-                search = Console.ReadLine();
-                FilterList(search);
+                search = Console.ReadLine()!;
+                BeginFilterList(search);
+                DisplayInfo(filteredList.ToArray());
             } while (i == 1);
         }
     }
