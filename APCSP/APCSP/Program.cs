@@ -43,11 +43,11 @@ namespace APCSP
         
     public class Program
     {
-        static string[] qualifierStrings;
+        static string[] qualifierStrings = new string[3];
         static StreamReader reader = new("final_transformed_csvjson.json");
         static string JSONString = reader.ReadToEnd(); 
-        static JSON dsJSONString = JsonSerializer.Deserialize<JSON>(JSONString)!; 
-        static List<int> filteredList;
+        static JSON dsJSONString = JsonSerializer.Deserialize<JSON>(JSONString)!;
+        static List<string> filteredList = new();
         public static void Main(string[] args)
         {
             int i = 1;
@@ -60,64 +60,56 @@ namespace APCSP
             
             static void BeginFilterList(string input)
             {
-
-                string[] patternList = { ",", "[0-4]a[c-h][j-l][q-s][w-x]z", "[0-4]", "qwer", "asdfghjklzxc", "[^0-9]" };
+                filteredList.Clear();
+                string[] patternList = [ ",", "[0-4]", "qwer", "asdfghjklzxc", "[^0-9]" ]; 
                 if (Regex.IsMatch(input, patternList[0]))
                 {
-                    string[] filterBy = input.Split(',');
-                    for (var i = 0; i < filterBy.Length; i++)
+                    string[] filterBy = input.Split(",");
+                    //TIME FOR A REALLY LONG CONDITIONAL, MY FAVORITE
+                    //LOOPS AREN'T WORKING SO WE'RE GOING CAVEMAN MODE
+                    if (filterBy[0].Length != 1 || !Regex.IsMatch(filterBy[0].ToLower(), patternList[1], RegexOptions.IgnoreCase) ||
+                        filterBy[1].Length != 1 || !Regex.IsMatch(filterBy[1].ToLower(), patternList[2], RegexOptions.IgnoreCase) ||
+                        filterBy[2].Length != 1 || !Regex.IsMatch(filterBy[2].ToLower(), patternList[3], RegexOptions.IgnoreCase) ||
+                        filterBy.Length != 3)
                     {
-                        if (filterBy[i].Length != 1 || !Regex.IsMatch(filterBy[i], patternList[1], RegexOptions.IgnoreCase) || filterBy.Length != 3)
-                        {
-                            Console.WriteLine("Ensure the format is correct, then try again.");
-                            HaltForInput();
-                            return;
-                        }
-
-                        if (Regex.IsMatch(filterBy[i], patternList[2]))
-                        {
-                            qualifierStrings[i] = filterBy[i] switch
-                            {
-                                "1" => "Metal",
-                                "2" => "Non-Metal",
-                                "3" => "Semi-metal",
-                                "4" => "Unknown"
-                            };
-                        }
-                        else if (Regex.IsMatch(filterBy[i], patternList[3]))
-                        {
-                            qualifierStrings[i] = filterBy[i].ToLower() switch
-                            {
-                                "q" => "Solid",
-                                "w" => "Liquid",
-                                "e" => "Gas",
-                                "r" => "Expected to be Solid"
-                            };
-                        }
-                        else if (Regex.IsMatch(filterBy[i], patternList[4]))
-                        {
-                            qualifierStrings[i] = filterBy[i].ToLower() switch
-                            {
-                                "a" => "No Definitive",
-                                "s" => "Alkali Metals",
-                                "d" => "Alkali Earth Metals",
-                                "f" => "Metalloids",
-                                "g" => "Poor Metals",
-                                "h" => "Transformation Metals",
-                                "j" => "Rare Earth Metals",
-                                "k" => "Halogens",
-                                "l" => "Noble Gases",
-                                "z" => "Actinide Metals",
-                                "x" => "Superheavy Elements",
-                                "c" => "Non-Metal"
-                            };
-                        }
+                        Console.WriteLine("Ensure the format is correct, then try again.");
+                        HaltForInput();
+                        return;
                     }
-                    CrossCompare();
+                    qualifierStrings[0] = filterBy[0] switch
+                    {
+                        "1" => "Metal",
+                        "2" => "Non-Metal",
+                        "3" => "Semi-metal", 
+                        "4" => "Unknown"
+                    };
+                    qualifierStrings[1] = filterBy[1].ToLower() switch
+                    {
+                        "q" => "Solid",
+                        "w" => "Liquid",
+                        "e" => "Gas",
+                        "r" => "Expected to be Solid"
+                    };
+                    qualifierStrings[2] = filterBy[2].ToLower() switch
+                    {
+                        "a" => "No Definitive",
+                        "s" => "Alkali Metals",
+                        "d" => "Alkali Earth Metals",
+                        "f" => "Metalloids",
+                        "g" => "Poor Metals",
+                        "h" => "Transformation Metals",
+                        "j" => "Rare Earth Metals",
+                        "k" => "Halogens",
+                        "l" => "Noble Gases",
+                        "z" => "Actinide Metals",
+                        "x" => "Superheavy Elements",
+                        "c" => "Non-Metal" 
+                    };
+                    CrossCompare(qualifierStrings);
                 }
                 else
                 {
-                    if (Regex.IsMatch(input, patternList[5]))
+                    if (Regex.IsMatch(input, patternList[4]))
                     {
                         Console.WriteLine("Ensure the format is correct, then try again.");
                         HaltForInput();
@@ -127,29 +119,60 @@ namespace APCSP
                     {
                         if (dsJSONString.id[i] == input)
                         {
-                            filteredList.Add(i);
+                            filteredList.Add(i.ToString());
                             return;
                         }
                     }
                 }
             }
 
-            static void CrossCompare()
+            static void CrossCompare(string[] input)
             {
-                
+                filteredList.Clear();
+                for (var i = 0; i < dsJSONString.id.Length; i++)
+                {
+                    if (input[0] == dsJSONString.AtomClass[i] && input[1] == dsJSONString.PaRT[i] && input[2] == dsJSONString.Group[i])
+                    {
+                        filteredList.Add(dsJSONString.id[i]);
+                    }
+                }
             }
 
-            static void DisplayInfo(int[] idStrings)
+            static void DisplayInfo(string[] idStrings)
             {
-                if (idStrings.Length > 1)
+                int index;
+                switch (idStrings.Length)
                 {
-                    
-                }
-                else
-                {
-                    int index = idStrings[0];
-                    Console.WriteLine(dsJSONString.Name[index]);
-                    HaltForInput();
+                    case 0:
+                        return;
+                    case > 1:
+                    {
+                        index = 0;
+                        ConsoleKeyInfo keyInfo;
+                        int j = 0;
+                        do
+                        {
+                            Console.WriteLine("Name: " + dsJSONString.Name[index] + "\n" +
+                                              "Atomic Number: " + dsJSONString.AtomicNumber[index] + "\n" +
+                                              "Symbol: " + dsJSONString.Symbol[index] + "\n" +
+                                              "Period: " + dsJSONString.PeriodNumber[index] + "\n" +
+                                              "Atomic Weight: " + dsJSONString.AtomicWeight[index] + "\n" +
+                                              "Density" + dsJSONString.Density[index] + "\n" +
+                                              "Melting Point: " + dsJSONString.MeltingPoint[index] + "\n" +
+                                              "Boiling Point: " + dsJSONString.BoilingPoint[index] + "\n" +
+                                              "Phase at Room Temperature: " + dsJSONString.PaRT[index] + "\n" +
+                                              "Atomic Classification: " + dsJSONString.AtomClass[index] + "\n" +
+                                              "Group: " + dsJSONString.Group[index] + "\n" +
+                                              "Uses: " + dsJSONString.Uses[index]);
+                        } while (j == 0);
+                        break;
+                    }
+                    default:
+                        index = Convert.ToInt32(idStrings[0]);
+                        Console.Clear();
+                        Console.WriteLine(dsJSONString.Name[index]);
+                        HaltForInput();
+                        break;
                 }
             }
 
