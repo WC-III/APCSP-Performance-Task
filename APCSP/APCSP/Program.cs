@@ -61,15 +61,35 @@ namespace APCSP
             static void BeginFilterList(string input)
             {
                 filteredList.Clear();
-                string[] patternList = [ ",", "[0-4]", "qwer", "asdfghjklzxc", "[^0-9]" ]; 
+                string[] patternList = [ ",", "[^0-9]" ];
                 if (Regex.IsMatch(input, patternList[0]))
                 {
                     string[] filterBy = input.Split(",");
+                    char[] delim = { '0', '1', '2', '3', '4', 'q', 'w', 'e', 'r', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c'};
+                    bool[] validityChecking = { false, false, false };
                     //TIME FOR A REALLY LONG CONDITIONAL, MY FAVORITE
                     //LOOPS AREN'T WORKING SO WE'RE GOING CAVEMAN MODE
-                    if (filterBy[0].Length != 1 || !Regex.IsMatch(filterBy[0].ToLower(), patternList[1], RegexOptions.IgnoreCase) ||
-                        filterBy[1].Length != 1 || !Regex.IsMatch(filterBy[1].ToLower(), patternList[2], RegexOptions.IgnoreCase) ||
-                        filterBy[2].Length != 1 || !Regex.IsMatch(filterBy[2].ToLower(), patternList[3], RegexOptions.IgnoreCase) ||
+                    //REGEX IS ALSO DEAD SO HERE WE ARE BABY, FOREACH TIME
+                    foreach (char c in delim)
+                    {
+                        if (Convert.ToChar(filterBy[0].ToLower()) == c)
+                        {
+                            validityChecking[0] = true;
+                        }
+
+                        if (Convert.ToChar(filterBy[1].ToLower()) == c)
+                        {
+                            validityChecking[1] = true;
+                        }
+
+                        if (Convert.ToChar(filterBy[2].ToLower()) == c)
+                        {
+                            validityChecking[2] = true;
+                        }
+                    }
+                    if (filterBy[0].Length != 1 || validityChecking[0] == false ||
+                        filterBy[1].Length != 1 || validityChecking[1] == false ||
+                        filterBy[2].Length != 1 || validityChecking[2] == false ||
                         filterBy.Length != 3)
                     {
                         Console.WriteLine("Ensure the format is correct, then try again.");
@@ -79,7 +99,7 @@ namespace APCSP
                     qualifierStrings[0] = filterBy[0] switch
                     {
                         "1" => "Metal",
-                        "2" => "Non-Metal",
+                        "2" => "Non-metal",
                         "3" => "Semi-metal", 
                         "4" => "Unknown"
                     };
@@ -92,7 +112,7 @@ namespace APCSP
                     };
                     qualifierStrings[2] = filterBy[2].ToLower() switch
                     {
-                        "a" => "No Definitive",
+                        "a" => "No definitive group",
                         "s" => "Alkali Metals",
                         "d" => "Alkali Earth Metals",
                         "f" => "Metalloids",
@@ -100,16 +120,16 @@ namespace APCSP
                         "h" => "Transformation Metals",
                         "j" => "Rare Earth Metals",
                         "k" => "Halogens",
-                        "l" => "Noble Gases",
+                        "l" => "Noble Gas",
                         "z" => "Actinide Metals",
                         "x" => "Superheavy Elements",
-                        "c" => "Non-Metal" 
+                        "c" => "Non-metal" 
                     };
                     CrossCompare(qualifierStrings);
                 }
                 else
                 {
-                    if (Regex.IsMatch(input, patternList[4]))
+                    if (Regex.IsMatch(input, patternList[1]))
                     {
                         Console.WriteLine("Ensure the format is correct, then try again.");
                         HaltForInput();
@@ -144,33 +164,80 @@ namespace APCSP
                 switch (idStrings.Length)
                 {
                     case 0:
+                        Console.Clear();
+                        Console.WriteLine("Nothing was found.");
+                        HaltForInput();
                         return;
-                    case > 1:
+                    case >= 1:
                     {
                         index = 0;
                         ConsoleKeyInfo keyInfo;
                         int j = 0;
                         do
                         {
-                            Console.WriteLine("Name: " + dsJSONString.Name[index] + "\n" +
-                                              "Atomic Number: " + dsJSONString.AtomicNumber[index] + "\n" +
-                                              "Symbol: " + dsJSONString.Symbol[index] + "\n" +
-                                              "Period: " + dsJSONString.PeriodNumber[index] + "\n" +
-                                              "Atomic Weight: " + dsJSONString.AtomicWeight[index] + "\n" +
-                                              "Density" + dsJSONString.Density[index] + "\n" +
-                                              "Melting Point: " + dsJSONString.MeltingPoint[index] + "\n" +
-                                              "Boiling Point: " + dsJSONString.BoilingPoint[index] + "\n" +
-                                              "Phase at Room Temperature: " + dsJSONString.PaRT[index] + "\n" +
-                                              "Atomic Classification: " + dsJSONString.AtomClass[index] + "\n" +
-                                              "Group: " + dsJSONString.Group[index] + "\n" +
-                                              "Uses: " + dsJSONString.Uses[index]);
+                            int d = Convert.ToInt32(idStrings[index]) - 1;
+                            Console.Clear();
+                            Console.WriteLine("Name: " + dsJSONString.Name[d] + "\n" +
+                                              "Atomic Number: " + dsJSONString.AtomicNumber[d] + "\n" +
+                                              "Symbol: " + dsJSONString.Symbol[d] + "\n" +
+                                              "Period: " + dsJSONString.PeriodNumber[d] + "\n" +
+                                              "Atomic Weight: " + dsJSONString.AtomicWeight[d] + "\n" +
+                                              "Density: " + dsJSONString.Density[d] + "\n" +
+                                              "Melting Point: " + dsJSONString.MeltingPoint[d] + "\n" +
+                                              "Boiling Point: " + dsJSONString.BoilingPoint[d] + "\n" +
+                                              "Phase at Room Temperature: " + dsJSONString.PaRT[d] + "\n" +
+                                              "Atomic Classification: " + dsJSONString.AtomClass[d] + "\n" +
+                                              "Group: " + dsJSONString.Group[d] + "\n" +
+                                              "Uses: " + dsJSONString.Uses[d]);
+                            Console.WriteLine("---\n" +
+                                              "Press the left arrow key to go down the element list.\n" +
+                                              "Press the right arrow key to go up the element list.\n" +
+                                              "Hit E at any time to exit this menu and go back to searching.");
+                            keyInfo = Console.ReadKey();
+                            switch (keyInfo.Key)
+                            {
+                                case ConsoleKey.LeftArrow:
+                                    if (index == 0)
+                                    {
+                                        index = idStrings.Length - 1;
+                                    }
+                                    else
+                                    {
+                                        index--;
+                                    }
+                                    break;
+                                case ConsoleKey.RightArrow:
+                                    if (index == idStrings.Length - 1)
+                                    {
+                                        index = 0;
+                                    }
+                                    else
+                                    {
+                                        index++;
+                                    }
+                                    break;
+                                case ConsoleKey.E:
+                                    j++;
+                                    break;
+                            }
                         } while (j == 0);
                         break;
                     }
                     default:
                         index = Convert.ToInt32(idStrings[0]);
                         Console.Clear();
-                        Console.WriteLine(dsJSONString.Name[index]);
+                        Console.WriteLine("Name: " + dsJSONString.Name[index] + "\n" +
+                                          "Atomic Number: " + dsJSONString.AtomicNumber[index] + "\n" +
+                                          "Symbol: " + dsJSONString.Symbol[index] + "\n" +
+                                          "Period: " + dsJSONString.PeriodNumber[index] + "\n" +
+                                          "Atomic Weight: " + dsJSONString.AtomicWeight[index] + "\n" +
+                                          "Density: " + dsJSONString.Density[index] + "\n" +
+                                          "Melting Point: " + dsJSONString.MeltingPoint[index] + "\n" +
+                                          "Boiling Point: " + dsJSONString.BoilingPoint[index] + "\n" +
+                                          "Phase at Room Temperature: " + dsJSONString.PaRT[index] + "\n" +
+                                          "Atomic Classification: " + dsJSONString.AtomClass[index] + "\n" +
+                                          "Group: " + dsJSONString.Group[index] + "\n" +
+                                          "Uses: " + dsJSONString.Uses[index]);
                         HaltForInput();
                         break;
                 }
