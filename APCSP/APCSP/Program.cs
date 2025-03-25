@@ -9,6 +9,7 @@ CITATIONS:
     I will admit to using AI; but for no program code itself.
     I'm not the greatest with regular expressions, so I enlisted ChatGPT (model 4o) to help.
     It created the expression "[^0-9]" in patternsList[5], and it confirmed patternsList[1] as being correct.
+    *note: as of the release of thus, patternsList is no longer 6 entries long. I keep the comments for sake of archival purposes.
     
     I also used AI for debugging, which it gave me the insight to use a List instead of an Array for filteredList.
     
@@ -18,7 +19,13 @@ CITATIONS:
     The original .json is still in this project, but is only there for archival purposes.
     
     Regular expression information came from the Microsoft Learn Documentation surrounding System.Text.RegularExpressions, Regex.IsMatch, and anything else regex related.
+    Essentially, it was a touch of AI and official docs that helped out a ton. All of the writing was done on my own, however.
 END CITATIONS
+
+I loved making this, it was by far the most complex thing I've ever had to make, and finish for that matter.
+Looking forward to APCSA!
+
+-Interval
 */
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -67,9 +74,6 @@ namespace APCSP
                     string[] filterBy = input.Split(",");
                     char[] delim = { '0', '1', '2', '3', '4', 'q', 'w', 'e', 'r', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c'};
                     bool[] validityChecking = { false, false, false };
-                    //TIME FOR A REALLY LONG CONDITIONAL, MY FAVORITE
-                    //LOOPS AREN'T WORKING SO WE'RE GOING CAVEMAN MODE
-                    //REGEX IS ALSO DEAD SO HERE WE ARE BABY, FOREACH TIME
                     foreach (char c in delim)
                     {
                         if (Convert.ToChar(filterBy[0].ToLower()) == c)
@@ -96,35 +100,45 @@ namespace APCSP
                         HaltForInput();
                         return;
                     }
-                    qualifierStrings[0] = filterBy[0] switch
+
+                    try
                     {
-                        "1" => "Metal",
-                        "2" => "Non-metal",
-                        "3" => "Semi-metal", 
-                        "4" => "Unknown"
-                    };
-                    qualifierStrings[1] = filterBy[1].ToLower() switch
+                        qualifierStrings[0] = filterBy[0] switch
+                        {
+                            "1" => "Metal",
+                            "2" => "Non-metal",
+                            "3" => "Semi-metal",
+                            "4" => "Unknown"
+                        };
+                        qualifierStrings[1] = filterBy[1].ToLower() switch
+                        {
+                            "q" => "Solid",
+                            "w" => "Liquid",
+                            "e" => "Gas",
+                            "r" => "Expected to be Solid"
+                        };
+                        qualifierStrings[2] = filterBy[2].ToLower() switch
+                        {
+                            "a" => "No definitive group",
+                            "s" => "Alkali Metals",
+                            "d" => "Alkali Earth Metals",
+                            "f" => "Metalloids",
+                            "g" => "Poor Metals",
+                            "h" => "Transformation Metals",
+                            "j" => "Rare Earth Metals",
+                            "k" => "Halogens",
+                            "l" => "Noble Gas",
+                            "z" => "Actinide Metals",
+                            "x" => "Superheavy Elements",
+                            "c" => "Non-metal"
+                        };
+                    }
+                    catch (Exception e)
                     {
-                        "q" => "Solid",
-                        "w" => "Liquid",
-                        "e" => "Gas",
-                        "r" => "Expected to be Solid"
-                    };
-                    qualifierStrings[2] = filterBy[2].ToLower() switch
-                    {
-                        "a" => "No definitive group",
-                        "s" => "Alkali Metals",
-                        "d" => "Alkali Earth Metals",
-                        "f" => "Metalloids",
-                        "g" => "Poor Metals",
-                        "h" => "Transformation Metals",
-                        "j" => "Rare Earth Metals",
-                        "k" => "Halogens",
-                        "l" => "Noble Gas",
-                        "z" => "Actinide Metals",
-                        "x" => "Superheavy Elements",
-                        "c" => "Non-metal" 
-                    };
+                        Console.Clear();
+                        Console.WriteLine(e.Message);
+                        HaltForInput();
+                    }
                     CrossCompare(qualifierStrings);
                 }
                 else

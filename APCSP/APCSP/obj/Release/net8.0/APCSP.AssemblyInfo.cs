@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("APCSP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26ff26c8c38754e79a907047c9d1a2dec9c7b435")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fa4c570deda331a6c4c362f487aa549c790a4e0c")]
 [assembly: System.Reflection.AssemblyProductAttribute("APCSP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("APCSP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
