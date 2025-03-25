@@ -168,7 +168,7 @@ namespace APCSP
                         Console.WriteLine("Nothing was found.");
                         HaltForInput();
                         return;
-                    case >= 1:
+                    case > 1:
                     {
                         index = 0;
                         ConsoleKeyInfo keyInfo;

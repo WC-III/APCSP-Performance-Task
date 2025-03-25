@@ -1,0 +1,15 @@
+C:\Users\willi\Documents\GitHub\APCSP-Performance-Task\APCSP\APCSP\bin\Release\net8.0\APCSP.exe
+C:\Users\willi\Documents\GitHub\APCSP-Performance-Task\APCSP\APCSP\bin\Release\net8.0\APCSP.deps.json
+C:\Users\willi\Documents\GitHub\APCSP-Performance-Task\APCSP\APCSP\bin\Release\net8.0\APCSP.runtimeconfig.json
+C:\Users\willi\Documents\GitHub\APCSP-Performance-Task\APCSP\APCSP\bin\Release\net8.0\APCSP.dll
+C:\Users\willi\Documents\GitHub\APCSP-Performance-Task\APCSP\APCSP\bin\Release\net8.0\APCSP.pdb
+C:\Users\willi\Documents\GitHub\APCSP-Performance-Task\APCSP\APCSP\obj\Release\net8.0\APCSP.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\willi\Documents\GitHub\APCSP-Performance-Task\APCSP\APCSP\obj\Release\net8.0\APCSP.AssemblyInfoInputs.cache
+C:\Users\willi\Documents\GitHub\APCSP-Performance-Task\APCSP\APCSP\obj\Release\net8.0\APCSP.AssemblyInfo.cs
+C:\Users\willi\Documents\GitHub\APCSP-Performance-Task\APCSP\APCSP\obj\Release\net8.0\APCSP.csproj.CoreCompileInputs.cache
+C:\Users\willi\Documents\GitHub\APCSP-Performance-Task\APCSP\APCSP\obj\Release\net8.0\APCSP.sourcelink.json
+C:\Users\willi\Documents\GitHub\APCSP-Performance-Task\APCSP\APCSP\obj\Release\net8.0\APCSP.dll
+C:\Users\willi\Documents\GitHub\APCSP-Performance-Task\APCSP\APCSP\obj\Release\net8.0\refint\APCSP.dll
+C:\Users\willi\Documents\GitHub\APCSP-Performance-Task\APCSP\APCSP\obj\Release\net8.0\APCSP.pdb
+C:\Users\willi\Documents\GitHub\APCSP-Performance-Task\APCSP\APCSP\obj\Release\net8.0\APCSP.genruntimeconfig.cache
+C:\Users\willi\Documents\GitHub\APCSP-Performance-Task\APCSP\APCSP\obj\Release\net8.0\ref\APCSP.dll
