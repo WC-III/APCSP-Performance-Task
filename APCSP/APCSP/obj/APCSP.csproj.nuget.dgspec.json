@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\willi\\Documents\\GitHub\\APCSP-Performance-Task\\APCSP\\APCSP\\APCSP.csproj": {}
+    "/home/william/GitHub/APCSP-Performance-Task/APCSP/APCSP/APCSP.csproj": {}
   },
   "projects": {
-    "C:\\Users\\willi\\Documents\\GitHub\\APCSP-Performance-Task\\APCSP\\APCSP\\APCSP.csproj": {
+    "/home/william/GitHub/APCSP-Performance-Task/APCSP/APCSP/APCSP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\willi\\Documents\\GitHub\\APCSP-Performance-Task\\APCSP\\APCSP\\APCSP.csproj",
+        "projectUniqueName": "/home/william/GitHub/APCSP-Performance-Task/APCSP/APCSP/APCSP.csproj",
         "projectName": "APCSP",
-        "projectPath": "C:\\Users\\willi\\Documents\\GitHub\\APCSP-Performance-Task\\APCSP\\APCSP\\APCSP.csproj",
-        "packagesPath": "C:\\Users\\willi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\willi\\Documents\\GitHub\\APCSP-Performance-Task\\APCSP\\APCSP\\obj\\",
+        "projectPath": "/home/william/GitHub/APCSP-Performance-Task/APCSP/APCSP/APCSP.csproj",
+        "packagesPath": "/home/william/.nuget/packages/",
+        "outputPath": "/home/william/GitHub/APCSP-Performance-Task/APCSP/APCSP/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\willi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/william/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -42,8 +36,9 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
-        }
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -59,12 +54,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.linux-x64",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/william/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
