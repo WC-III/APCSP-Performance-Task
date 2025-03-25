@@ -1,10 +1,10 @@
-if you're here, welcome
+Yeah, this is my APCSP PT submission, available for all to see.
+It's quite simple, download the .zip and run APCSP.exe for Windows and APSCP for Linux, just do it in a terminal.
 
-this is the apcsp performance task github page
+Downloading the necessary archive:
+1. Go to the sidebar and click on the `v1.0.0` icon
+2. Click on `net8.0.zip`, which will download it.
+3. Extract the zip archive.
+4. Run the necessary program.
 
-running all of this through a clone should allow the data sets to be available
-
-NEW:
-First, to access the releases, first click on the "beta" tag on the right.
-Then, select the only option, which should bring you to the release page.
-Finally, click on "release.zip" to go ahead and download the necessary program.
+If you don't have .NET SDK 8.0 or higher, then you'll need it. Otherwise, it's as easy as running the program.
